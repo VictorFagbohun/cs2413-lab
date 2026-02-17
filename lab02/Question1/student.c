@@ -3,7 +3,7 @@
 // CS Lab - Valid Parentheses (STACK PRACTICE)
 //
 // Task:
-// Implement `isValid(const char *s)`.
+// Implement `isValid(const char (*(s+i)))`.
 // Given a string s containing only: () {} []
 // return true if it is a valid parentheses string, else false.
 //
@@ -29,7 +29,7 @@
 #include <stddef.h>  // size_t
 #include <string.h>  // strlen
 
-bool isValid(const char *s) {
+bool isValid(const char (*s)) {
     // TODO: Implement using a stack.
     //
     // Recommended approach:
@@ -53,7 +53,64 @@ bool isValid(const char *s) {
     //
     // Note:
     // - Input contains only bracket characters, per the prompt.
+    
+    
+    int n = strlen(s);
+    if (n == 0){
+        return true;
+    }
+    if(n % 2 != 0){
+        return false;
+    }
+    
+    char myArray[100];
+    int arrayTop = 0;
+    for(int i =0; i<n; i++){
+        if(((*(s+i)) == '(') || ((*(s+i)) == '{') || ((*(s+i)) == '[')){
+            myArray[arrayTop] = (*(s+i));
+            arrayTop++;
+
+        }
+        else{
+            if ((*(s+i)) == ')'){
+                if(myArray[arrayTop-1] == '('){
+                    myArray[arrayTop-1] = ' ';
+                    arrayTop--;
+                } else {
+                    return false;
+                }
+
+            }
+            else if((*(s+i)) == '}'){
+                if(myArray[arrayTop-1] == '{'){
+                    myArray[arrayTop-1] = ' ';
+                    arrayTop--;
+                } else {
+                    return false;
+                }
+
+            }
+            else if ((*(s+i)) == ']'){
+                if(myArray[arrayTop-1] == '['){
+                    myArray[arrayTop-1] = ' ';
+                    arrayTop--;
+                } else {
+                    return false;
+                }
+
+            } else{
+                return false;
+            }
+        }
+
+    }
+
+    if (strlen(myArray) == 0){
+        return false;
+    }
+    
+
 
     (void)s; // remove after implementing
-    return false; // placeholder
+    return true; // placeholder
 }
