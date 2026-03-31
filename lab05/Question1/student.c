@@ -64,7 +64,33 @@ whose sum equals target.
 */
 int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
     /* Write your code here */
+    int offset = TABLE_SIZE;                     
+    int size = 2 * TABLE_SIZE + 1;
 
+    int* map = (int*)malloc(size * sizeof(int));
+
+
+    for (int i = 0; i < size; i++) {
+        map[i] = -1;
+    }
+
+    for (int i = 0; i < numsSize; i++) {
+        int complement = target - nums[i];
+
+        if (map[complement + offset] != -1) {
+            int* result = (int*)malloc(2 * sizeof(int));
+            result[0] = map[complement + offset];
+            result[1] = i;
+            *returnSize = 2;
+
+            free(map);
+            return result;
+        }
+
+        map[nums[i] + offset] = i;
+    }
+
+    free(map);
     *returnSize = 0;
     return NULL;
 }
@@ -74,7 +100,7 @@ Optional helper: compute a hash index for a key.
 */
 static int hash(int key) {
     /* Write your code here if you use this helper */
-    return 0;
+
 }
 
 /*
@@ -91,7 +117,7 @@ Otherwise return 0.
 */
 static int find(Node* table[], int key, int* value) {
     /* Write your code here if you use this helper */
-    return 0;
+   
 }
 
 /*
@@ -99,4 +125,5 @@ Optional helper: free all memory used by the hash table.
 */
 static void freeTable(Node* table[]) {
     /* Write your code here if you use this helper */
+   
 }
