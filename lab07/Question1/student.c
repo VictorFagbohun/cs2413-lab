@@ -27,16 +27,40 @@ Notes:
 - If the array is empty or has only one element, do nothing.
 - You may write a helper function such as swap(...) if you want.
 */
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
+// Basic Bubble Sort
 void bubbleSort(int arr[], int size) {
-    // TODO: implement basic bubble sort
-    (void)arr;
-    (void)size;
+    if (size <= 1) return;
+
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
+    }
 }
 
+// Optimized Bubble Sort (early stopping)
 void bubbleSortOptimized(int arr[], int size) {
-    // TODO: implement optimized bubble sort with early stopping
-    (void)arr;
-    (void)size;
-}
+    if (size <= 1) return;
 
+    for (int i = 0; i < size - 1; i++) {
+        bool swapped = false;
+
+        for (int j = 0; j < size - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+                swapped = true;
+            }
+        }
+
+        // Stop early if no swaps happened
+        if (!swapped) break;
+    }
+}
